@@ -1,6 +1,7 @@
 // LIBRAIRIES
 #include "constantes.h"
 #include "placeholder.h"
+#include <stdlib.h>
 
 // MAIN
 int main()
