@@ -1,0 +1,10 @@
+// DIRECTIVES
+#ifndef CONSTANTES_H
+#define CONSTANTES_H
+
+// LIBRAIRIES
+
+// CONSTANTES
+#define PLACEHOLDER 1
+
+#endif
