@@ -40,4 +40,4 @@ gdb: compile
 ### Archivage ###
 archive: clean
 	cd ../..
-	tar -czvf BARBIER_Adrien_Marine.tar.gz SimulationLoRa
+	tar -czvf BARBIER_CONOR_SOURSOU.tar.gz SimulationLoRa
