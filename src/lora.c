@@ -17,14 +17,37 @@ void Traitement_Collision()
 
 }
 
-void Simulateur(double *tempsEmissions, double *tempsAttente, double *probabilitésCollision)
+void Simulateur()
 {
-	Echeancier ech;
-	unsigned long int nbEmissions = 0;
-	unsigned long int nbPaquetsPerdus = 0;
+	Echeancier ech;									// Echéancier
+	int nombreEmissions[NB_CAPTEURS];				// Nombre d'émissions pour chaque capteur
+    double tempsEmission[NB_MAX_ESSAIS];            // Temps d'émission par état ej
+    double tempsAttente[NB_MAX_ESSAIS - 1];         // Temps d'attente par attente (wait) wj
+    double probabilitésCollision[NB_MAX_ESSAIS];    // Probabilités qu'une collision ait lieu en moyenne pour chaque état
 
-	while(nbEmissions < NB_MAX_EMISSIONS)
+    for(int i = 0; i < NB_CAPTEURS; i++)
+    {
+        nombreEmissions[i] = 0;
+    }
+    
+    for(int i = 0; i < NB_MAX_ESSAIS; i++)
+    {
+        tempsEmission[i] = 10;
+    }
+
+	for(int i = 0; i < (NB_MAX_ESSAIS - 1); i++)
+    {
+		tempsAttente[i] = 0.25;
+    }
+
+	while(1)
 	{
-		nbEmissions++;
+		for(int i = 0; i < NB_CAPTEURS; i++)
+		{
+			if(nombreEmissions[i] >= NB_MAX_EMISSIONS)
+			{
+				return;
+			}
+		}
 	}
 }

@@ -13,5 +13,5 @@
 double Expo_Duree(double lambda);
 void Traitement_Event(Evenement e, Echeancier ech);
 void Traitement_Collision();
-void Simulateur(double *tempsEmissions, double *tempsAttente, double *probabilitésCollision);
+void Simulateur();
 #endif
