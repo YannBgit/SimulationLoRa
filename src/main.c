@@ -1,20 +1,15 @@
 // LIBRAIRIES
-#include "constantes.h"
-#include "placeholder.h"
-#include <stdlib.h>
+#include "lora.h"
 
 // MAIN
 int main()
 {
-    // Initialisation des variables
-
-    // Affichage initial
+    // Variables
+    unsigned short nbCapteurs = 5;
 
     // Calculs
-
-    // Affichage final
+    Simulateur(nbCapteurs);
 
     // Fin
-
     exit(0);
 }

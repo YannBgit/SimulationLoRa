@@ -5,6 +5,7 @@
 // LIBRAIRIES
 
 // CONSTANTES
-#define PLACEHOLDER 1
+#define NB_MAX_ESSAIS 7
+#define NB_MAX_EMISSIONS 10e3
 
 #endif
