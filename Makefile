@@ -16,14 +16,14 @@ MATH = -lm
 ### run ###
 run: dir compile
 	./$(TRG)
-	$(TRG_DIR) lora1.data
-	$(TRG_DIR) lora2.data
-	$(TRG_DIR) lora3.data
-	$(TRG_DIR) lora4.data
-	$(TRG_DIR) lora5.data
-	$(TRG_DIR) lora6.data
-	$(TRG_DIR) lora7.data
-	gnuplot courbes.gplt
+# $(TRG_DIR) lora1.data
+# $(TRG_DIR) lora2.data
+# $(TRG_DIR) lora3.data
+# $(TRG_DIR) lora4.data
+# $(TRG_DIR) lora5.data
+# $(TRG_DIR) lora6.data
+# $(TRG_DIR) lora7.data
+# gnuplot courbes.gplt
 
 dir:
 	mkdir -p $(TRG_DIR)

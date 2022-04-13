@@ -17,14 +17,11 @@ void Traitement_Collision()
 
 }
 
-void Simulateur(unsigned short nbCapteurs)
+void Simulateur(unsigned short nbCapteurs, double *tempsEmissions, double *tempsAttente)
 {
-	FILE *F;
-	F = fopen("mm1.data", "w");
-	if(!F) exit(1);
-
 	Echeancier ech;
 	unsigned long int nbEmissions = 0;
+	unsigned long int nbPaquetsPerdus = 0;
 
 	while(nbEmissions < NB_MAX_EMISSIONS)
 	{

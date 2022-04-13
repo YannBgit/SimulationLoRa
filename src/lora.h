@@ -13,6 +13,6 @@
 double Expo_Duree(double lambda);
 void Traitement_Event();
 void Traitement_Collision();
-void Simulateur(unsigned short nbCapteurs);
+void Simulateur(unsigned short nbCapteurs, double *tempsEmissions, double *tempsAttente);
 
 #endif
