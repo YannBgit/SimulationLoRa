@@ -17,7 +17,7 @@ void Traitement_Collision()
 
 }
 
-void Simulateur(double *tempsEmissions, double *tempsAttente)
+void Simulateur(double *tempsEmissions, double *tempsAttente, double *probabilitésCollision)
 {
 	Echeancier ech;
 	unsigned long int nbEmissions = 0;
