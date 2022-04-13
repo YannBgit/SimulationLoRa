@@ -5,14 +5,13 @@
 int main()
 {
     // Initialisation des variables
-    unsigned short nbCapteurs = 5;              // K
     // variable i ??
-    double tempsEmissions[NB_MAX_ESSAIS];       // ej
+    double tempsEmission[NB_MAX_ESSAIS];        // ej
     double tempsAttente[NB_MAX_ESSAIS - 1];     // wj
 
     for(int i = 0; i < NB_MAX_ESSAIS; i++)
     {
-        tempsEmissions[i] = 10;
+        tempsEmission[i] = 10;
 
         if(i < (NB_MAX_ESSAIS - 1))
         {
@@ -21,7 +20,7 @@ int main()
     }
 
     // Calculs
-    Simulateur(nbCapteurs, tempsEmissions, tempsAttente);
+    Simulateur(tempsEmission, tempsAttente);
 
     // Fin
     exit(0);

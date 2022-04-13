@@ -8,13 +8,14 @@
 // STRUCTURES
 typedef struct evenement
 {
-	int numeroCapteur;
-	int etat;
+	int type;
+	double date;
+	double duree;
 } Evenement;
 
 typedef struct echeancier
 {
-	Evenement T[(int)NB_MAX_EMISSIONS];
+	Evenement etatsCapteurs[NB_CAPTEURS];
 } Echeancier;
 
 #endif
