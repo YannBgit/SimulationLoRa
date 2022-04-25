@@ -2,10 +2,7 @@
 #ifndef CONSTANTES_H
 #define CONSTANTES_H
 
-// LIBRAIRIES
-
 // CONSTANTES
-#define NB_CAPTEURS 5
 #define NB_MAX_ESSAIS 7
 #define NB_MAX_EMISSIONS 10e3
 

@@ -15,7 +15,8 @@ typedef struct evenement
 
 typedef struct echeancier
 {
-	Evenement etatsCapteurs[NB_CAPTEURS];
+	int *etatsCapteurs;
+	Evenement prochainEvenement;
 } Echeancier;
 
 #endif

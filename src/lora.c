@@ -9,45 +9,34 @@ double Expo_Duree(double lambda)
 
 void Traitement_Event(Evenement e, Echeancier ech)
 {
-
+	// Met à jour les variables de la simulation
 }
 
 void Traitement_Collision()
 {
-
+	// Traite une collisions, en particulier met à jour l'état des capteurs en collision
 }
 
-void Simulateur()
+bool testArret(int *nbEmissions, int nbCapteurs)
 {
-	Echeancier ech;									// Echéancier
-	int nombreEmissions[NB_CAPTEURS];				// Nombre d'émissions pour chaque capteur
-    double tempsEmission[NB_MAX_ESSAIS];            // Temps d'émission par état ej
-    double tempsAttente[NB_MAX_ESSAIS - 1];         // Temps d'attente par attente (wait) wj
-    double probabilitésCollision[NB_MAX_ESSAIS];    // Probabilités qu'une collision ait lieu en moyenne pour chaque état
+	int arret = 0;
 
-    for(int i = 0; i < NB_CAPTEURS; i++)
-    {
-        nombreEmissions[i] = 0;
-    }
-    
-    for(int i = 0; i < NB_MAX_ESSAIS; i++)
-    {
-        tempsEmission[i] = 10;
-    }
-
-	for(int i = 0; i < (NB_MAX_ESSAIS - 1); i++)
-    {
-		tempsAttente[i] = 0.25;
-    }
-
-	while(1)
+	for(int i = 0; i < nbCapteurs; i++)
 	{
-		for(int i = 0; i < NB_CAPTEURS; i++)
+		if(nbEmissions[i] >= NB_MAX_EMISSIONS)
 		{
-			if(nombreEmissions[i] >= NB_MAX_EMISSIONS)
-			{
-				return;
-			}
+			arret++;
 		}
+	}
+
+	return !(arret >= nbCapteurs);
+}
+
+void Simulateur(Echeancier ech, int nbCapteurs, int *nbEmissions, double *tempsEmission, double tempsAttenteSucces,
+double *tempsAttenteEchec, int *nbCollisions, double *probaCollision)
+{
+	while(testArret(nbEmissions, nbCapteurs))
+	{
+		// Simulation
 	}
 }
