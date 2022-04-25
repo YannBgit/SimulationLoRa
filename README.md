@@ -23,3 +23,6 @@ Pour nettoyer le projet des fichiers temporaires :
 ```bash
 	make clean
 ```
+
+A chaque collision dans la simulation, écrire dans src/lora.data :
+temps n°état

@@ -1,10 +1,9 @@
-# Setup
-set term pdf
-set output "courbes.pdf"
+### Etude wb-cs-stanford ###
+modelname = "data/lora.data"
+data = read.table(modelname)
+attach(data);
 
 # 7 courbes de probabilités de collision dans les états ej en fonction du temps de la simulation
-set logscale y
-plot x/(1-x), "lora1.data" w lp, "lora2.data" w lp, "lora3.data" w lp, "lora4.data" w lp, "lora5.data" w lp, "lora6.data" w lp, "lora7.data" w lp
 
 # A RAJOUTER SUR LA MÊME FIGURE : Intervalle de confiance à 90% de probabilités de collisions dans l'état e2 (50 simulations)
 
