@@ -25,4 +25,4 @@ Pour nettoyer le projet des fichiers temporaires :
 ```
 
 A chaque collision dans la simulation, écrire dans src/lora.data :
-temps n°état
+temps n°état1 n°état2

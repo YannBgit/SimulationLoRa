@@ -6,5 +6,5 @@ echo Démarrage des simulations
 for ((c = 0; c < 50; c++))
 do
 echo c
-./main >> data/lora.data
+./main
 done
