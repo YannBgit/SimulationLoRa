@@ -13,15 +13,17 @@ CC = gcc
 CFLAGS = -O3 -Wall -g
 MATH = -lm
 
+### compile ###
+compile: dir
+	$(CC) $(CFLAGS) $(SRC) -o $(TRG) $(MATH)
+
 ### run ###
-run: dir compile
+run: compile
 	./$(TRG)
 
+### Création du répertoire target ###
 dir:
 	mkdir -p $(TRG_DIR)
-
-compile:
-	$(CC) $(CFLAGS) $(SRC) -o $(TRG) $(MATH)
 
 ### Suppression du répertoire cible ###
 clean:

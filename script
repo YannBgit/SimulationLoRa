@@ -1,7 +1,7 @@
 # Compilation du programme
 make
 
-echo Démarrage des simulations
+printf "Démarrage des simulations\n"
 
 for ((c = 0; c < 50; c++))
 do
