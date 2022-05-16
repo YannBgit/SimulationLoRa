@@ -1,20 +1,20 @@
-// DIRECTIVES
-#ifndef LORA_H
-#define LORA_H
-
-// LIBRAIRIES
-#include "constantes.h"
+#pragma once
 #include "echeancier.h"
-#include <math.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
 
-// FONCTIONS
-double Expo_Duree(double lambda);
+/** Un capteur du réseau LoRa. */
+typedef struct s_capteur
+{
+	/** L'état du capteur. */
+	int etat;
+} Capteur;
+
+
+typedef struct s_simulation
+{
+	
+} Simulation;
+
 void Traitement_Event(Evenement e, Echeancier ech);
 void Traitement_Collision();
-void Simulateur(Echeancier ech, int nbCapteurs, int *nbEmissions, double *tempsEmission, double tempsAttenteSucces,
+void Simulateur(Echeancier ech, int *nbEmissions, double *tempsEmission, double tempsAttenteSucces,
 double *tempsAttenteEchec, int *nbCollisions, double *probaCollision);
-
-#endif

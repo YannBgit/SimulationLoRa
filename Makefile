@@ -1,45 +1,57 @@
-### Chemins ###
-SRC_DIR = src
-TRG_DIR = target
-TRG = $(TRG_DIR)/main
+NAME			:= simulation
+DEBUG_SUFFIX	:= _debug
+RELEASE_SUFFIX	:= _release
+DEBUG_OUTPUT	:= $(NAME)$(DEBUG_SUFFIX)
+RELEASE_OUTPUT	:= $(NAME)$(RELEASE_SUFFIX)
+SRC_EXT			:= .c
+SRC_DIR			:= src
+SRC				:= $(wildcard $(SRC_DIR)/*$(SRC_EXT))
+CC				:= gcc
+CFLAGS			:= -Wall -Wextra -Werror -MMD -MP
+CFLAGS_DEBUG	:= $(CFLAGS) -g3
+CFLAGS_RELEASE	:= $(CFLAGS) -O2 -DNDEBUG
+LDFLAGS			:= -lm
+BUILD_DIR		:= .build
+OBJ_EXT			:= .o
+OBJ_DEBUG		:= $(SRC:$(SRC_DIR)/%$(SRC_EXT)=$(BUILD_DIR)/%$(DEBUG_SUFFIX)$(OBJ_EXT))
+OBJ_RELEASE		:= $(SRC:$(SRC_DIR)/%$(SRC_EXT)=$(BUILD_DIR)/%$(RELEASE_SUFFIX)$(OBJ_EXT))
+DOXYGEN_DIR		:= doc/doxygen
+RUN_ARGS		:=
 
-### Fichiers ###
-SRC = $(wildcard $(SRC_DIR)/*.c)
+all: $(DEBUG_OUTPUT) $(RELEASE_OUTPUT)
 
-### Compilateur ###
-CC = gcc
+$(DEBUG_OUTPUT): $(OBJ_DEBUG)
+	$(CC) $(CFLAGS_DEBUG) $^ -o $@ $(LDFLAGS)
 
-### Flags ###
-CFLAGS = -O3 -Wall -g
-MATH = -lm
+$(RELEASE_OUTPUT): $(OBJ_RELEASE)
+	$(CC) $(CFLAGS_RELEASE) $^ -o $@ $(LDFLAGS)
 
-### compile ###
-compile: dir
-	$(CC) $(CFLAGS) $(SRC) -o $(TRG) $(MATH)
-
-### run ###
-run: compile
-	./$(TRG)
-
-### Création du répertoire target ###
-dir:
-	mkdir -p $(TRG_DIR)
-
-### Suppression du répertoire cible ###
 clean:
-	rm -rf $(TRG_DIR)
-	rm -f *.o
-	clear
+	rm -rf $(DEBUG_OUTPUT) $(RELEASE_OUTPUT) $(BUILD_DIR) $(DOXYGEN_DIR)
 
-### Vérification de fuites de mémoire ###
-memcheck: compile
-	valgrind ./$(EXE)
+doc:
+	doxygen
 
-### Deboguage GDB ###
-gdb: compile
-	gdb ${EXE}
+re: clean all
 
-### Archivage ###
-archive: clean
-	cd ../..
-	tar -czvf BARBIER_CONOR_SOURSOU.tar.gz SimulationLoRa
+run: $(RELEASE_OUTPUT)
+	./$< $(RUN_ARGS)
+
+run-gdb: $(DEBUG_OUTPUT)
+	gdb --args ./$< $(RUN_ARGS)
+
+run-valgrind: $(DEBUG_OUTPUT)
+	valgrind --leak-check=full ./$< $(RUN_ARGS)
+
+$(BUILD_DIR):
+	mkdir $@
+
+$(BUILD_DIR)/%$(DEBUG_SUFFIX)$(OBJ_EXT): $(SRC_DIR)/%$(SRC_EXT) | $(BUILD_DIR)
+	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
+
+$(BUILD_DIR)/%$(RELEASE_SUFFIX)$(OBJ_EXT): $(SRC_DIR)/%$(SRC_EXT) | $(BUILD_DIR)
+	$(CC) $(CFLAGS_RELEASE) -c $< -o $@
+
+-include $(OBJ:%$(OBJ_EXT)=%.d)
+
+.PHONY: all clean doc re run run-gdb run-valgrind

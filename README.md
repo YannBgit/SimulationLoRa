@@ -6,7 +6,6 @@ Contributeurs :
 - SOURSOU Adrien
 - CONOR Marine
 
-
 Concernant les commandes ci-dessous, il faut d'abord ouvrir une console dans le répertoire de ce README.
 
 Pour compiler le programme :

@@ -1,22 +1,54 @@
-// DIRECTIVES
-#ifndef ECHEANCIER_H
-#define ECHEANCIER_H
-
-// LIBRAIRIES
+#pragma once
 #include "constantes.h"
 
-// STRUCTURES
-typedef struct evenement
+/** Représente un évènement dans l'échéancier. */
+typedef struct s_evenement
 {
+	/** Le type d'événement. */
 	int type;
+	/** La date de l'événement. */
 	double date;
+	/** La durée de l'événement. */
 	double duree;
 } Evenement;
 
-typedef struct echeancier
+/** Représente un ensemble d'évènement en fonction de leur date. */
+typedef struct s_echeancier
 {
-	int *etatsCapteurs;
-	Evenement prochainEvenement;
+	/** Le stockage des événements. */
+	Evenement evenements[MAX_EVENEMENTS];
+	/** Le nombre d'événements actuellement dans l'échéancier. */
+	int n;
 } Echeancier;
 
-#endif
+/**
+ * Ajoute un événement à l'échéancier.
+ * @param e L'échéancier.
+ * @param type Le type de l'événement.
+ * @param date La date de l'événement.
+ * @param duree La durée de l'événement.
+ */
+void echeancier_ajouter(Echeancier *e, int type, double date, double duree);
+
+/**
+ * Récupère le prochain événement de l'échéancier.
+ * Cette évenement est supprimé de l'échéancier.
+ * Le comportement est indéfini si l'échéancier est vide.
+ * @param e L'échéancier.
+ * @return Le prochain événement.
+ * @see echeancier_vide
+ */
+Evenement echeancier_suivant(Echeancier *e);
+
+/**
+ * Initialise l'échéancier.
+ * @param e L'échéancier.
+ */
+void echeancier_init(Echeancier *e);
+
+/**
+ * Vérifie si l'échéancier est vide.
+ * @param e L'échéancier.
+ * @return 1 si l'échéancier est vide, 0 sinon.
+ */
+int echeancier_vide(Echeancier *e);
