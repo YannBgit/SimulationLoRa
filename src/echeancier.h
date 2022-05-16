@@ -42,10 +42,10 @@ void echeancier_ajouter(Echeancier *e, TypeEvenement type, double date);
 /**
  * Détecte si un évènement est en collision avec un autre dans l'échéancier.
  * @param e L'échéancier.
- * @param e1 L'évènement à tester.
+ * @param date La date de l'événement à tester.
  * @return L'évènement en collision avec e1, ou NULL si aucun évènement n'est en collision.
  */
-Evenement *echeancier_detecter_collision(Echeancier *e, const Evenement *e1);
+Evenement *echeancier_detecter_collision(Echeancier *e, double date);
 
 /**
  * Récupère le prochain événement de l'échéancier.

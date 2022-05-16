@@ -1,3 +1,4 @@
+#include <float.h>
 #include <stddef.h>
 #include "echeancier.h"
 
@@ -12,17 +13,17 @@ void echeancier_ajouter(Echeancier *e, TypeEvenement type, double date)
 	e->n++;
 }
 
-Evenement *echeancier_detecter_collision(Echeancier *e, const Evenement *e1)
+Evenement *echeancier_detecter_collision(Echeancier *e, double date)
 {
-	Evenement *even = NULL;
-	double date = __DBL_MAX__;
+	Evenement *collision = NULL;
 
-	for(int i = 0; i < e->n; i++)
-	{
-		Evenement e2 = e->evenements[i];
-	}
-
-	return even;
+	for (int i = 0; i < e->n; ++i)
+		if (e->evenements[i].type == FE && e->evenements[i].date < date)
+		{
+			date = e->evenements[i].date;
+			collision = e->evenements + i;
+		}
+	return collision;
 }
 
 Evenement echeancier_suivant(Echeancier *e)
