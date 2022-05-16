@@ -13,11 +13,11 @@ DE(k, e, t): Début Emission
 	sinon
 		ech.ajouter(FE, k, e, t + d)
 
+FE(k, e, t): Fin Emission
+	ech.ajouter(DE, k, 0, t + exp(i))
+
 TC(k, e, t): Traitement Collision
 	si e <= 7
 		ech.ajouter(DE, k, e + 1, t + exp(w))
 	sinon
 		ech.ajouter(DE, k, 0, t + exp(i))
-
-FE(k, e, t): Fin Emission
-	ech.ajouter(EP, k, 0, t + exp(i))

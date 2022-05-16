@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Non-source files
-data
 doc/doxygen
 simulation_debug
 simulation_release
+lora.data

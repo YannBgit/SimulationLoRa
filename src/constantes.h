@@ -1,8 +1,5 @@
 #pragma once
 
-/** Le nombre de capteurs. */
-#define K 5
-
 /** Lambda de la durée d'émission d'un paquet. */
 #define LAMBDA_E 10
 
@@ -17,6 +14,9 @@
 
 /** Le nombre maximum d'évènements dans l'échéancier. */
 #define MAX_EVENEMENTS 1000
+
+/** Le nombre maximum de capteurs dans le réseau. */
+#define MAX_K 100
 
 /**
  * Le nombre minimum de messages correctement émis par chaque capteur avant

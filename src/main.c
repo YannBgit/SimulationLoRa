@@ -1,33 +1,37 @@
+#include <sys/types.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
 #include "lora.h"
 
-int main()
+static int print_error(const char *section, const char *message)
 {
-	// Initialisation des variables
-	Echeancier ech;								// Echéancier
-	Simulation sim;								// Simulation
-	int nbEmissions[K];   						// Nombre d'émissions pour chaque capteur
-	double tempsEmission[MAX_ESSAIS];			// Graines du temps d'émission par état ej
-	double tempsAttenteSucces = 0.1;			// Graine du temps d'attente en cas d'émission réussie i
-	double tempsAttenteEchec[MAX_ESSAIS - 1];	// Graines du temps d'attente en cas d'échec (collision) par wj (wait)
-	int nbCollisions[MAX_ESSAIS];				// Nombre de collisions par état
-	double probaCollision[MAX_ESSAIS];			// Probabilités qu'une collision ait lieu en moyenne pour chaque état
+	fprintf(stderr, "error: %s: %s\n", section, message);
+	return EXIT_FAILURE;
+}
 
-	for(int i = 0; i < K; i++)
-	{
-		nbEmissions[i] = 0;
-	}
+static int print_usage(char *bin)
+{
+	fprintf(stderr,
+		"usage: %s [K]\n"
+		"Format de sortie: K T P_collision1 ... P_collision7 T_emission1 T_emission2\n"
+	, bin);
+	return EXIT_FAILURE;
+}
 
-	for(int i = 0; i < MAX_ESSAIS; i++)
-	{
-		tempsEmission[i] = 10;
-	}
+int main(int ac, char **av)
+{
+	// Validation des arguments
+	if (ac != 2)
+		return print_usage(*av);
+	int K = atoi(av[1]);
+	if (K < 1 || K > MAX_K)
+		return print_error(av[1], "K doit être compris entre 1 et MAX_K");
 
-	for(int i = 0; i < (MAX_ESSAIS - 1); i++)
-	{
-		tempsAttenteEchec[i] = 0.25;
-	}
-
-	// Calculs
-	Simulateur(&ech);
+	srandom(time(NULL));
+	Simulation sim;
+	simulation_init(&sim, K);
+	Simulateur(&sim);
+	simulation_print(&sim);
 }

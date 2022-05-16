@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# Compilation du programme
-make
-
-printf "Démarrage des simulations\n"
-
-for ((c = 0; c < 50; c++)); do
-	echo c
-	./main
+file=lora.data
+rm -rf $file
+for ((c = 1; c <= 100; ++c)); do
+	echo -ne "\rSimulation pour K = $c"
+	./simulation_release $c >> $file
 done
+echo
