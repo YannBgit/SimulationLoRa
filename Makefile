@@ -9,7 +9,7 @@ SRC				:= $(wildcard $(SRC_DIR)/*$(SRC_EXT))
 CC				:= gcc
 CFLAGS			:= -Wall -Wextra -Werror -MMD -MP
 CFLAGS_DEBUG	:= $(CFLAGS) -g3
-CFLAGS_RELEASE	:= $(CFLAGS) -O2 -DNDEBUG
+CFLAGS_RELEASE	:= $(CFLAGS) -Ofast -DNDEBUG
 LDFLAGS			:= -lm
 BUILD_DIR		:= .build
 OBJ_EXT			:= .o
@@ -27,7 +27,7 @@ $(RELEASE_OUTPUT): $(OBJ_RELEASE)
 	$(CC) $(CFLAGS_RELEASE) $^ -o $@ $(LDFLAGS)
 
 clean:
-	rm -rf $(DEBUG_OUTPUT) $(RELEASE_OUTPUT) $(BUILD_DIR) $(DOXYGEN_DIR) lora.data
+	rm -rf $(DEBUG_OUTPUT) $(RELEASE_OUTPUT) $(BUILD_DIR) $(DOXYGEN_DIR) lora.data *.Rout
 
 doc:
 	doxygen
