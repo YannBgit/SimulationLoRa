@@ -4,10 +4,10 @@
 /** Un capteur du réseau LoRa. */
 typedef struct s_capteur
 {
-	/** L'état du capteur. */
-	int etat;
-	/** Le nombre d'émissions réussies. */
-	int nbEmissions;
+	/** Le nombre d'émissions ratées pour le paquet actuel. */
+	int nbEchecs;
+	/** Le nombre total d'émissions réussies. */
+	int nbTotalEmissions;
 } Capteur;
 
 /** La structure qui contient les variables de la simulation. */
@@ -17,8 +17,6 @@ typedef struct s_simulation
 	Capteur capteurs[K];
 	/** Nombre de capteurs qui ont atteint le minimum d'émissions réussies. */
 	int nbMinEmissions;
-	//int *nbEmissions, double *tempsEmission, double tempsAttenteSucces,
-	//double *tempsAttenteEchec, int *nbCollisions, double *probaCollision
 } Simulation;
 
 void Traitement_Event(Evenement *e, Echeancier *ech);

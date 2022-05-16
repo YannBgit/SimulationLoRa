@@ -1,12 +1,12 @@
+#include <stddef.h>
 #include "echeancier.h"
 
-void echeancier_ajouter(Echeancier *e, int type, double date, double duree)
+void echeancier_ajouter(Echeancier *e, int type, double date)
 {
 	Evenement even;
 
 	even.type = type;
 	even.date = date;
-	even.duree = duree;
 
 	e->evenements[e->n] = even;
 	e->n++;
@@ -14,24 +14,12 @@ void echeancier_ajouter(Echeancier *e, int type, double date, double duree)
 
 Evenement *echeancier_detecter_collision(Echeancier *e, const Evenement *e1)
 {
-	Evenement even = NULL;
+	Evenement *even = NULL;
 	double date = __DBL_MAX__;
 
 	for(int i = 0; i < e->n; i++)
 	{
 		Evenement e2 = e->evenements[i];
-
-		if
-		(
-			(((e1.date > e2.date) && ((e1.date + e1.duree) > (e2.date + e2.duree)))
-			|| ((e1.date < e2.date) && ((e1.date + e1.duree) < (e2.date + e2.duree)))
-			|| ((e1.date > e2.date) && ((e1.date + e1.duree) < (e2.date + e2.duree)))
-			|| ((e1.date < e2.date) && ((e1.date + e1.duree) > (e2.date + e2.duree))))
-			&& (e->evenements[i].date < date)
-		)
-		{
-			even = e->evenements[i];
-		}
 	}
 
 	return even;

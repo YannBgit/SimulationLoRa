@@ -1,0 +1,23 @@
+Evenement(k, e, t)
+
+Initilisation :
+Pour tout k de 0 à K - 1
+	ech.ajouter(DE, k, 0, t + exp(i))
+
+DE(k, e, t): Début Emission
+	d <- exp(e)
+	c <- Collision(ech, t + d)
+	si c existe
+		ech.ajouter(TC, k, e, c.t)
+		ech.modifier(TC, c.k, c.e, c.t)
+	sinon
+		ech.ajouter(FE, k, e, t + d)
+
+TC(k, e, t): Traitement Collision
+	si e <= 7
+		ech.ajouter(DE, k, e + 1, t + exp(w))
+	sinon
+		ech.ajouter(DE, k, 0, t + exp(i))
+
+FE(k, e, t): Fin Emission
+	ech.ajouter(EP, k, 0, t + exp(i))

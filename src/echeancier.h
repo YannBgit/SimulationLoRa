@@ -6,10 +6,10 @@ typedef struct s_evenement
 {
 	/** Le type d'événement. */
 	int type;
+	/** L'état du capteur. */
+	int etat;
 	/** La date de l'événement. */
 	double date;
-	/** La durée de l'événement. */
-	double duree;
 } Evenement;
 
 /** Représente un ensemble d'évènement en fonction de leur date. */
@@ -26,9 +26,8 @@ typedef struct s_echeancier
  * @param e L'échéancier.
  * @param type Le type de l'événement.
  * @param date La date de l'événement.
- * @param duree La durée de l'événement.
  */
-void echeancier_ajouter(Echeancier *e, int type, double date, double duree);
+void echeancier_ajouter(Echeancier *e, int type, double date);
 
 /**
  * Détecte si un évènement est en collision avec un autre dans l'échéancier.
