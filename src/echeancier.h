@@ -1,11 +1,21 @@
 #pragma once
 #include "constantes.h"
 
+typedef enum e_type_evenement
+{
+	/** Début émission */
+	DE,
+	/** Fin émission */
+	FE,
+	/** Traitement collision */
+	TC
+}	TypeEvenement;
+
 /** Représente un évènement dans l'échéancier. */
 typedef struct s_evenement
 {
 	/** Le type d'événement. */
-	int type;
+	TypeEvenement type;
 	/** L'état du capteur. */
 	int etat;
 	/** La date de l'événement. */
@@ -27,7 +37,7 @@ typedef struct s_echeancier
  * @param type Le type de l'événement.
  * @param date La date de l'événement.
  */
-void echeancier_ajouter(Echeancier *e, int type, double date);
+void echeancier_ajouter(Echeancier *e, TypeEvenement type, double date);
 
 /**
  * Détecte si un évènement est en collision avec un autre dans l'échéancier.

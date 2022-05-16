@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include "echeancier.h"
 
-void echeancier_ajouter(Echeancier *e, int type, double date)
+void echeancier_ajouter(Echeancier *e, TypeEvenement type, double date)
 {
 	Evenement even;
 
