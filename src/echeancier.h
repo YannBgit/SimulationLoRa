@@ -31,6 +31,14 @@ typedef struct s_echeancier
 void echeancier_ajouter(Echeancier *e, int type, double date, double duree);
 
 /**
+ * Détecte si un évènement est en collision avec un autre dans l'échéancier.
+ * @param e L'échéancier.
+ * @param e1 L'évènement à tester.
+ * @return L'évènement en collision avec e1, ou NULL si aucun évènement n'est en collision.
+ */
+Evenement *echeancier_detecter_collision(const Echeancier *e, const Evenement *e1);
+
+/**
  * Récupère le prochain événement de l'échéancier.
  * Cette évenement est supprimé de l'échéancier.
  * Le comportement est indéfini si l'échéancier est vide.

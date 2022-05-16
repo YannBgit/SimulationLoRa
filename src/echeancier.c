@@ -1,3 +1,5 @@
+#include "echeancier.h"
+
 void echeancier_ajouter(Echeancier *e, int type, double date, double duree)
 {
 	Evenement even;
@@ -12,18 +14,17 @@ void echeancier_ajouter(Echeancier *e, int type, double date, double duree)
 
 Evenement echeancier_suivant(Echeancier *e)
 {
-	Evenement even = e->evenement[0];
+	Evenement even = e->evenements[0];
 
 	for(int i = 1; i < e->n; i++)
 	{
-		if(e->evenement[i].date < even.date)
+		if(e->evenements[i].date < even.date)
 		{
-			even = e->evenement[i];
+			even = e->evenements[i];
 		}
 	}
 
-	SWAP(even, e->evenement[n]);
-	e->n--;
+	SWAP(even, e->evenements[--e->n]);
 
 	return even;
 }

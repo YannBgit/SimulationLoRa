@@ -5,7 +5,8 @@ int main()
 {
 	// Initialisation des variables
 	Echeancier ech;								// Echéancier
-	int nbEmissions[K];   				// Nombre d'émissions pour chaque capteur
+	Simulation sim;								// Simulation
+	int nbEmissions[K];   						// Nombre d'émissions pour chaque capteur
 	double tempsEmission[MAX_ESSAIS];			// Graines du temps d'émission par état ej
 	double tempsAttenteSucces = 0.1;			// Graine du temps d'attente en cas d'émission réussie i
 	double tempsAttenteEchec[MAX_ESSAIS - 1];	// Graines du temps d'attente en cas d'échec (collision) par wj (wait)
@@ -28,6 +29,5 @@ int main()
 	}
 
 	// Calculs
-	Simulateur(ech, nbEmissions, tempsEmission, tempsAttenteSucces,
-	tempsAttenteEchec, nbCollisions, probaCollision);
+	Simulateur(&ech);
 }
