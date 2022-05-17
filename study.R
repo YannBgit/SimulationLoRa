@@ -26,9 +26,13 @@ plot_7_courbes_inter <- function(name)
     lines(lowess(data$T, data$P_col6, f = f_size), col = "darkolivegreen4")
     lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
 
-    #polygon(c(data$T, rev(data*T)), c(data$P_col2*0.90, rev(data$P_col2*1.1)), col = "grey75", border = FALSE)
+    datalowe2 = data$P_col2 * 0.9
+    datahighe2 = data$P_col2 * 1.1
 
-    legend("topright", legend = paste("état =", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
+    lines(lowess(data$T, datalowe2, f = 0.3), col = "black")
+    lines(lowess(data$T, datahighe2, f = 0.3), col = "black")
+
+    legend("topright", legend = paste("Etat", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
     lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
 
 	# AJOUTER INTERVALLE DE CONFIANCE A 90% DE P_COL2
@@ -47,18 +51,16 @@ plot_histogrammes_TE <- function(name)
 	hist(datae1$T_em1,
     xlab = "Temps d'émission dans e1",
     col = "lightblue",
-    main = "Nombre de temps d'émission par plage dans e1\nK fixé à 5")
+    main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 100 simulations")
 	abline(v = mean(datae1$T_em1), f = f_size, col = "black")
-    legend("topright", legend = "moyenne du temps\nd'émission",
-    lty = "solid", col = c("black"))
+    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
 
     hist(datae2$T_em2,
     xlab = "Temps d'émission dans e2",
     col = "lightblue",
-    main = "Nombre de temps d'émission par plage dans e1\nK fixé à 5")
+    main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 100 simulations")
 	abline(v = mean(datae2$T_em2), f = f_size, col = "black")
-    legend("topright", legend = "moyenne du temps\nd'émission",
-    lty = "solid", col = c("black"))
+    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
 }
 
 # Courbe de la probabilité de collision moyenne sur les 7 états d'émission en fonction du
@@ -78,6 +80,8 @@ plot_P_collision_moyenne <- function(name)
          col = "blue",
          main = "Probabilité de collision moyenne\nen fonction du nombre de capteurs")
 	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
+    abline(h = 0.7, col = "black")
+    legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "solid", col = "black")
 }
 
 plot_7_courbes_inter("lora1.data")
