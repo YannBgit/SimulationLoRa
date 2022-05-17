@@ -7,7 +7,6 @@ void Traitement_Event(Simulation *sim, const Evenement *e)
 {
 	if(e->type == DE)
 	{
-		//printf("DE %d\n", e->k);
 		double d = Expo_Duree(LAMBDA_E);
 		sim->tempsEmission[e->etat] = d;
 		Evenement *c = echeancier_detecter_collision(&sim->ech, e->date + d);
@@ -20,8 +19,7 @@ void Traitement_Event(Simulation *sim, const Evenement *e)
 	if(e->type == FE)
 	{
 		++sim->nbEmissions[e->etat];
-		sim->tempsEmission[e->etat] = 0;
-		//printf("FE %d\n", e->k);
+		sim->tempsEmission[e->etat] = -1;
 		echeancier_ajouter(&sim->ech, DE, e->k, 0, e->date + Expo_Duree(LAMBDA_I));
 		if (++sim->nbTotalEmissions[e->k] == MIN_EMISSIONS)
 			++sim->nbMinEmissions;
@@ -31,7 +29,6 @@ void Traitement_Event(Simulation *sim, const Evenement *e)
 	{
 		++sim->nbCollisions[e->etat];
 		++sim->nbEmissions[e->etat];
-		//printf("TC %d\n", e->k);
 		if (e->etat < MAX_ESSAIS)
 			echeancier_ajouter(&sim->ech, DE, e->k, e->etat + 1, e->date + Expo_Duree(LAMBDA_W));
 		else
@@ -41,7 +38,6 @@ void Traitement_Event(Simulation *sim, const Evenement *e)
 
 void Traitement_Collision(Simulation *sim, const Evenement *e1, Evenement *e2)
 {
-	//printf("Collision %d %d\n", e1->k, e2->k);
 	sim->tempsEmission[e1->etat] -= e2->date - e1->date;
 	echeancier_ajouter(&sim->ech, TC, e1->k, e1->etat, e2->date);
 	e2->type = TC;
@@ -53,14 +49,13 @@ void Simulateur(Simulation *sim, int showAll)
 	while (sim->nbMinEmissions < sim->K)
 	{
 		assert(!echeancier_vide(&sim->ech));
-		//for (int i = 0; i < sim->ech.n; ++i)
-			//printf("-> %d %d %d %f\n", sim->ech.evenements[i].type, sim->ech.evenements[i].k, sim->ech.evenements[i].etat, sim->ech.evenements[i].date);
 		Evenement e = echeancier_suivant(&sim->ech);
 		sim->T = e.date;
-		//printf("%d %d %d %f\n", e.type, e.k, e.etat, e.date);
 		Traitement_Event(sim, &e);
 		if (showAll)
 			simulation_print(sim);
+		for (int i = 0; i < 2; ++i)
+			sim->tempsEmission[i] = -1;
 	}
 }
 
@@ -80,7 +75,7 @@ void simulation_init(Simulation *sim, int K)
 	{
 		sim->nbCollisions[i] = 0;
 		sim->nbEmissions[i] = 0;
-		sim->tempsEmission[i] = 0;
+		sim->tempsEmission[i] = -1;
 	}
 }
 
