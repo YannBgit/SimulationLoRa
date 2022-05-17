@@ -13,9 +13,7 @@ echo 'Terminé !'
 file=lora2.data
 echo "Génération des données de $file"
 for ((k = 1; k <= 100; ++k)); do
-	for ((i = 1; i <= 20; ++i)); do
-		./simulation_release $k >> $file
-	done
+	./simulation_release $k >> $file
 	echo -ne "\r$k %"
 done
 echo -e '\rTerminé !'

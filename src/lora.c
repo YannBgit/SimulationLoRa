@@ -9,7 +9,7 @@ void Traitement_Event(Simulation *sim, const Evenement *e)
 	{
 		//printf("DE %d\n", e->k);
 		double d = Expo_Duree(LAMBDA_E);
-		sim->tempsEmission[e->etat] += d;
+		sim->tempsEmission[e->etat] = d;
 		Evenement *c = echeancier_detecter_collision(&sim->ech, e->date + d);
 		if (c)
 			Traitement_Collision(sim, e, c);
@@ -20,9 +20,10 @@ void Traitement_Event(Simulation *sim, const Evenement *e)
 	if(e->type == FE)
 	{
 		++sim->nbEmissions[e->etat];
+		sim->tempsEmission[e->etat] = 0;
 		//printf("FE %d\n", e->k);
 		echeancier_ajouter(&sim->ech, DE, e->k, 0, e->date + Expo_Duree(LAMBDA_I));
-		if (++sim->capteurs[e->k].nbTotalEmissions == MIN_EMISSIONS)
+		if (++sim->nbTotalEmissions[e->k] == MIN_EMISSIONS)
 			++sim->nbMinEmissions;
 	}
 
@@ -70,7 +71,7 @@ void simulation_init(Simulation *sim, int K)
 	for (int i = 0; i < K; ++i)
 	{
 		echeancier_ajouter(&sim->ech, DE, i, 0, Expo_Duree(LAMBDA_I));
-		sim->capteurs[i].nbTotalEmissions = 0;
+		sim->nbTotalEmissions[i] = 0;
 	}
 	sim->T = 0;
 	sim->K = K;

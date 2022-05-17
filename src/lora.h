@@ -1,20 +1,13 @@
 #pragma once
 #include "echeancier.h"
 
-/** Un capteur du réseau LoRa. */
-typedef struct s_capteur
-{
-	/** Le nombre total d'émissions réussies. */
-	int nbTotalEmissions;
-} Capteur;
-
 /** La structure qui contient les variables de la simulation. */
 typedef struct s_simulation
 {
 	/** L'échéancier des évènements. */
 	Echeancier ech;
-	/** L'ensemble des capteurs du réseau LoRa. */
-	Capteur capteurs[MAX_K];
+	/** Le nombre total d'émissions réussies dans chaque capteur. */
+	int nbTotalEmissions[MAX_K];
 	/** Le temps de simulation. */
 	double T;
 	/** Le nombre de capteurs dans le réseau. */
