@@ -5,12 +5,11 @@ rm -rf *.data
 
 file=lora1.data
 echo "Génération des données de $file"
-for ((i = 1; i <= 10; ++i)); do
+for ((i = 1; i <= 50; ++i)); do
 	./simulation_release --all 5 >> $file
 done
 echo 'Terminé !'
 R CMD BATCH study.R
-exit
 
 file=lora2.data
 echo "Génération des données de $file"
