@@ -3,6 +3,8 @@ cex_size = 0.5
 pch_id = 20
 columns = c("K", "T", "P_col1", "P_col2", "P_col3", "P_col4", "P_col5", "P_col6", "P_col7", "T_em1", "T_em2")
 
+# 7 courbes de probabilités de collision dans les états ej en fonction du temps de la simulation
+# + intervalle de confiance à 90% de probabilités de collisions dans l'état e2 (50 simulations).
 plot_7_courbes_inter <- function(name)
 {
 	data = read.table(name)
@@ -14,7 +16,7 @@ plot_7_courbes_inter <- function(name)
          xlab = "Temps de la simulation T",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
-         main = "Probabilité de collision moyenne\nen fonction du temps de la simulation")
+         main = "Probabilité de collision moyenne\nen fonction du temps de la simulation, K fixé à 5")
     lines(lowess(data$T, data$P_col1, f = f_size), col = "blue")
 	points(data$T, data$P_col2, pch = pch_id, cex = cex_size, col = "green")
     lines(lowess(data$T, data$P_col2, f = f_size), col = "green")
@@ -29,58 +31,58 @@ plot_7_courbes_inter <- function(name)
 	points(data$T, data$P_col7, pch = pch_id, cex = cex_size, col = "goldenrod")
     lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
 
-	# AJOUTER INTERVALLE DE CONFIANCE A 90%  DE P_COL2
+    #lines()
+    #lines()
+
+    legend("bottomright", legend = paste("état =", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
+    lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
+
+	# AJOUTER INTERVALLE DE CONFIANCE A 90% DE P_COL2
 }
 
+# Tracer deux histogrammes du temps d'émission observé. Le premier concerne l'état e1, le deuxième
+# l'état e2. Indiquer la moyenne du temps observé dans chaque histogramme.
 plot_histogrammes_TE <- function(name)
 {
 	data = read.table(name)
     colnames(data) = columns
 
-	plot(data$T, data$T_em1,
-		 type = "h",
-         xlab = "Temps de la simulation T",
-         ylab = "Temps d'émission en e1",
-         col = "blue",
-         main = "Temps d'émission en e1\nen fonction du temps de la simulation")
-	abline(h = 1000, f = f_size, col = "black")
+	hist(data$T_em1,
+    xlab = "Temps d'émission dans e1",
+    col = "lightblue",
+    main = "Fréquence du temps d'émission dans e1\nK fixé à 5")
+	abline(v = mean(data$T_em1), f = f_size, col = "black")
+    legend("topright", legend = "moyenne du temps\nd'émission",
+    lty = "solid", col = c("black"))
 
-	plot(data$T, data$T_em2,
-		 type = "h",
-         xlab = "Temps de la simulation T",
-         ylab = "Temps d'émission en e2",
-         col = "blue",
-         main = "Temps d'émission en e2\nen fonction du temps de la simulation")
-	abline(h = 1000, f = f_size, col = "black")
-
-    # CALCULER LA MOYENNE DU TEMPS OBSERVE DANS CHAQUE HISTOGRAMME
+    hist(data$T_em2,
+    xlab = "Temps d'émission dans e2",
+    col = "lightblue",
+    main = "Fréquence du temps d'émission dans e2\nK fixé à 5")
+	abline(v = mean(data$T_em2), f = f_size, col = "black")
+    legend("topright", legend = "moyenne du temps\nd'émission",
+    lty = "solid", col = c("black"))
 }
 
+# Courbe de la probabilité de collision moyenne sur les 7 états d'émission en fonction du
+# nombre de capteurs dans le réseau (de 1 à 100).
 plot_P_collision_moyenne <- function(name)
 {
 	data = read.table(name)
     colnames(data) = columns
 
-    plot(data$K, data$P_col1, 
+    datamean = (data$P_col1 + data$P_col2 + data$P_col3 + data$P_col4 + data$P_col5 + data$P_col6 + data$P_col7)/7
+
+    plot(data$K, datamean, 
          pch = pch_id,
          cex = cex_size,
          xlab = "Nombre de capteurs K",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
          main = "Probabilité de collision moyenne\nen fonction du nombre de capteurs")
-    lines(lowess(data$K, data$P_col1, f = f_size), col = "blue")
-
-	# UTILISER LA MOYENNE DES P_COL AU LIEU DE P_COL1
+	lines(lowess(data$K, datamean, f = f_size), col = "blue")
 }
 
-# 7 courbes de probabilités de collision dans les états ej en fonction du temps de la simulation
-# + intervalle de confiance à 90% de probabilités de collisions dans l'état e2 (50 simulations).
-plot_7_courbes_inter("lora.data")
-
-# Tracer deux histogrammes du temps d'émission observé. Le premier concerne l'état e1, le deuxième
-# l'état e2. Indiquer la moyenne du temps observé dans chaque histogramme.
-plot_histogrammes_TE("lora.data")
-
-# Courbe de la probabilité de collision moyenne sur les 7 états d'émission) en fonction du
-# nombre de capteurs dans le réseau (de 1 à 100).
-plot_P_collision_moyenne("lora.data")
+plot_7_courbes_inter("lora1.data")
+plot_histogrammes_TE("lora1.data")
+plot_P_collision_moyenne("lora2.data")
