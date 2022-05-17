@@ -44,6 +44,7 @@ void Traitement_Collision(Simulation *sim, const Evenement *e1, Evenement *e2)
 	sim->tempsEmission[e1->etat] -= e2->date - e1->date;
 	echeancier_ajouter(&sim->ech, TC, e1->k, e1->etat, e2->date);
 	e2->type = TC;
+	sim->T = e2->date;
 }
 
 void Simulateur(Simulation *sim, int showAll)

@@ -37,7 +37,7 @@ int main(int ac, char **av)
 	if (K < 1 || K > MAX_K)
 		return print_error(av[1], "K doit être compris entre 1 et MAX_K");
 
-	srandom(time(NULL));
+	srandom(time(NULL) + getpid());
 	Simulation sim;
 	simulation_init(&sim, K);
 	Simulateur(&sim, all);
