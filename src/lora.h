@@ -15,6 +15,8 @@ typedef struct s_simulation
 	Echeancier ech;
 	/** L'ensemble des capteurs du réseau LoRa. */
 	Capteur capteurs[MAX_K];
+	/** Le temps de simulation. */
+	double T;
 	/** Le nombre de capteurs dans le réseau. */
 	int K;
 	/** Nombre de capteurs qui ont atteint le minimum d'émissions réussies. */
@@ -29,7 +31,7 @@ typedef struct s_simulation
 
 void Traitement_Event(Simulation *sim, const Evenement *e);
 void Traitement_Collision(Simulation *sim, const Evenement *e1, Evenement *e2);
-void Simulateur(Simulation *sim);
+void Simulateur(Simulation *sim, int showAll);
 
 void simulation_init(Simulation *sim, int K);
-void simulation_print(Simulation *sim);
+void simulation_print(const Simulation *sim);

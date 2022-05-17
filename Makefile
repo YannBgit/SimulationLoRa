@@ -27,7 +27,7 @@ $(RELEASE_OUTPUT): $(OBJ_RELEASE)
 	$(CC) $(CFLAGS_RELEASE) $^ -o $@ $(LDFLAGS)
 
 clean:
-	rm -rf $(DEBUG_OUTPUT) $(RELEASE_OUTPUT) $(BUILD_DIR) $(DOXYGEN_DIR) lora.data *.Rout
+	rm -rf $(DEBUG_OUTPUT) $(RELEASE_OUTPUT) $(BUILD_DIR) $(DOXYGEN_DIR) *.data *.Rout
 
 doc:
 	doxygen

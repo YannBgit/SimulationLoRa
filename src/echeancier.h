@@ -72,4 +72,4 @@ void echeancier_init(Echeancier *e);
  * @param e L'échéancier.
  * @return 1 si l'échéancier est vide, 0 sinon.
  */
-int echeancier_vide(Echeancier *e);
+int echeancier_vide(const Echeancier *e);

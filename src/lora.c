@@ -46,7 +46,7 @@ void Traitement_Collision(Simulation *sim, const Evenement *e1, Evenement *e2)
 	e2->type = TC;
 }
 
-void Simulateur(Simulation *sim)
+void Simulateur(Simulation *sim, int showAll)
 {
 	while (sim->nbMinEmissions < sim->K)
 	{
@@ -54,8 +54,11 @@ void Simulateur(Simulation *sim)
 		//for (int i = 0; i < sim->ech.n; ++i)
 			//printf("-> %d %d %d %f\n", sim->ech.evenements[i].type, sim->ech.evenements[i].k, sim->ech.evenements[i].etat, sim->ech.evenements[i].date);
 		Evenement e = echeancier_suivant(&sim->ech);
+		sim->T = e.date;
 		//printf("%d %d %d %f\n", e.type, e.k, e.etat, e.date);
 		Traitement_Event(sim, &e);
+		if (showAll)
+			simulation_print(sim);
 	}
 }
 
@@ -68,6 +71,7 @@ void simulation_init(Simulation *sim, int K)
 		echeancier_ajouter(&sim->ech, DE, i, 0, Expo_Duree(LAMBDA_I));
 		sim->capteurs[i].nbTotalEmissions = 0;
 	}
+	sim->T = 0;
 	sim->K = K;
 	sim->nbMinEmissions = 0;
 	for (int i = 0; i < MAX_ESSAIS; ++i)
@@ -78,12 +82,12 @@ void simulation_init(Simulation *sim, int K)
 	}
 }
 
-void simulation_print(Simulation *sim)
+void simulation_print(const Simulation *sim)
 {
-	printf("%d %g", sim->K, echeancier_suivant(&sim->ech).date);
+	printf("%d %g", sim->K, sim->T);
 	for (int i = 0; i < MAX_ESSAIS; ++i)
 		if (sim->nbEmissions[i])
-			printf(" %g", (double)sim->nbCollisions[i] /  sim->nbEmissions[i]);
+			printf(" %g", (double)sim->nbCollisions[i] / sim->nbEmissions[i]);
 		else
 			printf(" 0");
 	printf(" %g %g\n", sim->tempsEmission[0], sim->tempsEmission[1]);

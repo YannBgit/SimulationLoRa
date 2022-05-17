@@ -1,14 +1,23 @@
 #!/bin/bash
 
-file=lora.data
-rm -rf $file
 make
+rm -rf *.data
 
-for ((c = 1; c <= 100; ++c)); do
-	echo -ne "\rSimulation pour K = $c"
-	./simulation_release $c >> $file
+file=lora1.data
+echo "Génération des données de $file"
+for ((i = 1; i <= 50; ++i)); do
+	./simulation_release --all 5 >> $file
 done
+echo 'Terminé !'
 
-echo
+file=lora2.data
+echo "Génération des données de $file"
+for ((k = 1; k <= 100; ++k)); do
+	for ((i = 1; i <= 10; ++i)); do
+		./simulation_release $k >> $file
+	done
+	echo -ne "\r$k %"
+done
+echo -e '\rTerminé !'
 
 R CMD BATCH study.R

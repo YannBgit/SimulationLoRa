@@ -55,4 +55,5 @@ dkms.conf
 doc/doxygen
 simulation_debug
 simulation_release
-lora.data
+*.data
+*.Rout

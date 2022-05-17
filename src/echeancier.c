@@ -25,7 +25,6 @@ Evenement *echeancier_detecter_collision(Echeancier *e, double date)
 			date = e->evenements[i].date;
 			collision = e->evenements + i;
 		}
-		// TODO: Vérifier collision avec FE
 	return collision;
 }
 
@@ -46,7 +45,7 @@ void echeancier_init(Echeancier *e)
 	e->n = 0;
 }
 
-int echeancier_vide(Echeancier *e)
+int echeancier_vide(const Echeancier *e)
 {
 	return !e->n;
 }
