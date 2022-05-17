@@ -1,4 +1,4 @@
-f_size = 0.3
+f_size = 0.001
 cex_size = 0.5
 pch_id = 20
 columns = c("K", "T", "P_col1", "P_col2", "P_col3", "P_col4", "P_col5", "P_col6", "P_col7", "T_em1", "T_em2")
@@ -10,21 +10,21 @@ plot_7_courbes_inter <- function(name)
 	data = read.table(name)
     colnames(data) = columns
 
-    plot(data$T, data$P_col1,
-         ylim = c(0, 1), 
-         #type = "l",
+    plot(lowess(data$T, data$P_col1, f = f_size),
+         type = "l",
+         ylim = c(0, 0.2), 
          pch = pch_id,
          cex = cex_size,
          xlab = "Temps de la simulation T",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
          main = "Probabilité de collision moyenne\nen fonction du temps de la simulation, K fixé à 5")
-    #lines(lowess(data$T, data$P_col2, f = f_size), col = "green")
-    #lines(lowess(data$T, data$P_col3, f = f_size), col = "red")
-    #lines(lowess(data$T, data$P_col4, f = f_size), col = "coral3")
-    #lines(lowess(data$T, data$P_col5, f = f_size), col = "cyan4")
-    #lines(lowess(data$T, data$P_col6, f = f_size), col = "darkolivegreen4")
-    #lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
+    lines(lowess(data$T, data$P_col2, f = f_size), col = "green")
+    lines(lowess(data$T, data$P_col3, f = f_size), col = "red")
+    lines(lowess(data$T, data$P_col4, f = f_size), col = "coral3")
+    lines(lowess(data$T, data$P_col5, f = f_size), col = "cyan4")
+    lines(lowess(data$T, data$P_col6, f = f_size), col = "darkolivegreen4")
+    lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
 
     #lines()
     #lines()
