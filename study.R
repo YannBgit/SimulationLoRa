@@ -26,8 +26,7 @@ plot_7_courbes_inter <- function(name)
     lines(lowess(data$T, data$P_col6, f = f_size), col = "darkolivegreen4")
     lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
 
-    #lines()
-    #lines()
+    #polygon(c(data$T, rev(data*T)), c(data$P_col2*0.90, rev(data$P_col2*1.1)), col = "grey75", border = FALSE)
 
     legend("topright", legend = paste("état =", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
     lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
@@ -42,19 +41,22 @@ plot_histogrammes_TE <- function(name)
 	data = read.table(name)
     colnames(data) = columns
 
-	hist(data$T_em1,
+    datae1 = data[data$T_em1 != -1,]
+    datae2 = data[data$T_em2 != -1,]
+
+	hist(datae1$T_em1,
     xlab = "Temps d'émission dans e1",
     col = "lightblue",
-    main = "Fréquence du temps d'émission dans e1\nK fixé à 5")
-	abline(v = mean(data$T_em1), f = f_size, col = "black")
+    main = "Nombre de temps d'émission par plage dans e1\nK fixé à 5")
+	abline(v = mean(datae1$T_em1), f = f_size, col = "black")
     legend("topright", legend = "moyenne du temps\nd'émission",
     lty = "solid", col = c("black"))
 
-    hist(data$T_em2,
+    hist(datae2$T_em2,
     xlab = "Temps d'émission dans e2",
     col = "lightblue",
-    main = "Fréquence du temps d'émission dans e2\nK fixé à 5")
-	abline(v = mean(data$T_em2), f = f_size, col = "black")
+    main = "Nombre de temps d'émission par plage dans e1\nK fixé à 5")
+	abline(v = mean(datae2$T_em2), f = f_size, col = "black")
     legend("topright", legend = "moyenne du temps\nd'émission",
     lty = "solid", col = c("black"))
 }
@@ -75,7 +77,7 @@ plot_P_collision_moyenne <- function(name)
          ylab = "Probabilité de collision moyenne",
          col = "blue",
          main = "Probabilité de collision moyenne\nen fonction du nombre de capteurs")
-	lines(lowess(data$K, datamean, f = f_size), col = "blue")
+	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
 }
 
 plot_7_courbes_inter("lora1.data")
