@@ -11,30 +11,24 @@ plot_7_courbes_inter <- function(name)
     colnames(data) = columns
 
     plot(data$T, data$P_col1, 
+         type = "l",
          pch = pch_id,
          cex = cex_size,
          xlab = "Temps de la simulation T",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
          main = "Probabilité de collision moyenne\nen fonction du temps de la simulation, K fixé à 5")
-    lines(lowess(data$T, data$P_col1, f = f_size), col = "blue")
-	points(data$T, data$P_col2, pch = pch_id, cex = cex_size, col = "green")
     lines(lowess(data$T, data$P_col2, f = f_size), col = "green")
-	points(data$T, data$P_col3, pch = pch_id, cex = cex_size, col = "red")
     lines(lowess(data$T, data$P_col3, f = f_size), col = "red")
-	points(data$T, data$P_col4, pch = pch_id, cex = cex_size, col = "coral3")
     lines(lowess(data$T, data$P_col4, f = f_size), col = "coral3")
-	points(data$T, data$P_col5, pch = pch_id, cex = cex_size, col = "cyan4")
     lines(lowess(data$T, data$P_col5, f = f_size), col = "cyan4")
-	points(data$T, data$P_col6, pch = pch_id, cex = cex_size, col = "darkolivegreen4")
     lines(lowess(data$T, data$P_col6, f = f_size), col = "darkolivegreen4")
-	points(data$T, data$P_col7, pch = pch_id, cex = cex_size, col = "goldenrod")
     lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
 
     #lines()
     #lines()
 
-    legend("bottomright", legend = paste("état =", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
+    legend("topright", legend = paste("état =", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
     lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
 
 	# AJOUTER INTERVALLE DE CONFIANCE A 90% DE P_COL2
