@@ -1,4 +1,4 @@
-f_size = 0.001
+f_size = 0.003
 cex_size = 0.5
 pch_id = 20
 columns = c("K", "T", "P_col1", "P_col2", "P_col3", "P_col4", "P_col5", "P_col6", "P_col7", "T_em1", "T_em2")
