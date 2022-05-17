@@ -57,3 +57,5 @@ simulation_debug
 simulation_release
 *.data
 *.Rout
+.RData
+Rplots.pdf

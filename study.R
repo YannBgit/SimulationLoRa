@@ -29,13 +29,11 @@ plot_7_courbes_inter <- function(name)
     datalowe2 = data$P_col2 * 0.9
     datahighe2 = data$P_col2 * 1.1
 
-    lines(lowess(data$T, datalowe2, f = 0.3), col = "black")
-    lines(lowess(data$T, datahighe2, f = 0.3), col = "black")
+    lines(lowess(data$T, datalowe2, f = f_size), col = "black")
+    lines(lowess(data$T, datahighe2, f = f_size), col = "black")
 
     legend("topright", legend = paste("Etat", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
     lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
-
-	# AJOUTER INTERVALLE DE CONFIANCE A 90% DE P_COL2
 }
 
 # Tracer deux histogrammes du temps d'émission observé. Le premier concerne l'état e1, le deuxième
@@ -49,6 +47,7 @@ plot_histogrammes_TE <- function(name)
     datae2 = data[data$T_em2 != -1,]
 
 	hist(datae1$T_em1,
+    xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e1",
     col = "lightblue",
     main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 100 simulations")
@@ -56,6 +55,7 @@ plot_histogrammes_TE <- function(name)
     legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
 
     hist(datae2$T_em2,
+    xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e2",
     col = "lightblue",
     main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 100 simulations")
@@ -80,8 +80,8 @@ plot_P_collision_moyenne <- function(name)
          col = "blue",
          main = "Probabilité de collision moyenne\nen fonction du nombre de capteurs")
 	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
-    abline(h = 0.7, col = "black")
-    legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "solid", col = "black")
+    abline(h = 0.7, col = "red")
+    legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "solid", col = "red")
 }
 
 plot_7_courbes_inter("lora1.data")
