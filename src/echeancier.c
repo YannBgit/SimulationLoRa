@@ -13,7 +13,6 @@ void echeancier_ajouter(Echeancier *e, TypeEvenement type, int k, int etat, doub
 	e->evenements[e->n].etat = etat;
 	e->evenements[e->n].date = date;
 	++e->n;
-	//printf("echeancier_ajouter (%d)\n", e->n);
 }
 
 Evenement *echeancier_detecter_collision(Echeancier *e, double date)
@@ -36,7 +35,6 @@ Evenement echeancier_suivant(Echeancier *e)
 			ev = e->evenements + i;
 	--e->n;
 	SWAP(*ev, e->evenements[e->n]);
-	//printf("echeancier_suivant (%d)\n", e->n);
 	return e->evenements[e->n];
 }
 
