@@ -32,10 +32,10 @@ plot_7_courbes_inter <- function(name1, name2)
     IC = t.test(data$P_col2, conf.level = 0.9)
 
     abline(h = IC$conf.int[1], f = f_size, col = "black")
-    abline(h = IC$conf.int[2], f = f_size, col = "black")
+    abline(h = IC$conf.int[2] - 0.01, f = f_size, col = "black")
 
     legend("topright", legend = paste("Etat", c("e1", "e2", "e3", "e4", "e5", "e6", "e7"),
-    lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
+    lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod")))
 }
 
 # Tracer deux histogrammes du temps d'émission observé. Le premier concerne l'état e1, le deuxième
@@ -82,7 +82,7 @@ plot_P_collision_moyenne <- function(name)
          col = "blue",
          main = "Probabilité de collision moyenne sur 100 simulations\nen fonction du nombre de capteurs")
 	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
-    abline(h = 0.7, col = "red")
+    abline(h = 0.7, f = f_size, col = "red")
     legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "longdash", col = "red")
 }
 
