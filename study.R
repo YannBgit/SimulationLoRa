@@ -5,9 +5,9 @@ columns = c("K", "T", "P_col1", "P_col2", "P_col3", "P_col4", "P_col5", "P_col6"
 
 # 7 courbes de probabilités de collision dans les états ej en fonction du temps de la simulation
 # + intervalle de confiance à 90% de probabilités de collisions dans l'état e2 (50 simulations).
-plot_7_courbes_inter <- function(name)
+plot_7_courbes_inter <- function(name1, name2)
 {
-	data = read.table(name)
+	data = read.table(name1)
     colnames(data) = columns
 
     plot(lowess(data$T, data$P_col1, f = f_size),
@@ -25,6 +25,9 @@ plot_7_courbes_inter <- function(name)
     lines(lowess(data$T, data$P_col5, f = f_size), col = "cyan4")
     lines(lowess(data$T, data$P_col6, f = f_size), col = "darkolivegreen4")
     lines(lowess(data$T, data$P_col7, f = f_size), col = "goldenrod")
+
+    data = read.table(name2)
+    colnames(data) = columns
 
     datalowe2 = data$P_col2 * 0.9
     datahighe2 = data$P_col2 * 1.1
@@ -50,17 +53,17 @@ plot_histogrammes_TE <- function(name)
     xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e1",
     col = "lightblue",
-    main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 100 simulations")
+    main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 50 simulations")
 	abline(v = mean(datae1$T_em1), f = f_size, col = "black")
-    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
+    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "longdash", col = "black")
 
     hist(datae2$T_em2,
     xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e2",
     col = "lightblue",
-    main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 100 simulations")
+    main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 50 simulations")
 	abline(v = mean(datae2$T_em2), f = f_size, col = "black")
-    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
+    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "longdash", col = "black")
 }
 
 # Courbe de la probabilité de collision moyenne sur les 7 états d'émission en fonction du
@@ -78,12 +81,12 @@ plot_P_collision_moyenne <- function(name)
          xlab = "Nombre de capteurs K",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
-         main = "Probabilité de collision moyenne\nen fonction du nombre de capteurs")
+         main = "Probabilité de collision moyenne sur 100 simultions\nen fonction du nombre de capteurs")
 	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
     abline(h = 0.7, col = "red")
-    legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "solid", col = "red")
+    legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "longdash", col = "red")
 }
 
-plot_7_courbes_inter("lora1.data")
+plot_7_courbes_inter("lora1.data", "lora2.data")
 plot_histogrammes_TE("lora1.data")
-plot_P_collision_moyenne("lora2.data")
+plot_P_collision_moyenne("lora3.data")
