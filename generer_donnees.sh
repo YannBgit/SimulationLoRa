@@ -4,13 +4,13 @@ make
 rm -rf *.data
 
 file=lora1.data
-./simulation_release 5 >> $file
+./simulation_release --all 5 >> $file
 echo 'lora1 terminé !'
 
 file=lora2.data
 echo "Génération des données de $file"
 for ((i = 1; i <= 50; ++i)); do
-	./simulation_release 5 >> $file
+	./simulation_release --all 5 >> $file
 done
 echo 'lora 2 terminé !'
 
