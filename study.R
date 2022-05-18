@@ -12,7 +12,7 @@ plot_7_courbes_inter <- function(name1, name2)
 
     plot(lowess(data$T, data$P_col1, f = f_size),
          type = "l",
-         ylim = c(0, 0.2), 
+         ylim = c(0, 0.5),
          pch = pch_id,
          cex = cex_size,
          xlab = "Temps de la simulation T",
@@ -29,13 +29,12 @@ plot_7_courbes_inter <- function(name1, name2)
     data = read.table(name2)
     colnames(data) = columns
 
-    datalowe2 = data$P_col2 * 0.9
-    datahighe2 = data$P_col2 * 1.1
+    IC = t.test(data$P_col2, conf.level = 0.9)
 
-    lines(lowess(data$T, datalowe2, f = f_size), col = "black")
-    lines(lowess(data$T, datahighe2, f = f_size), col = "black")
+    abline(h = IC$conf.int[1], f = f_size, col = "black")
+    abline(h = IC$conf.int[2], f = f_size, col = "black")
 
-    legend("topright", legend = paste("Etat", c("e1", "e2", "e3", "e4", "e5", "e6", "e7")),
+    legend("topright", legend = paste("Etat", c("e1", "e2", "e3", "e4", "e5", "e6", "e7"),
     lty = "solid", col = c("blue", "green", "red", "coral3", "cyan4", "darkolivegreen4", "goldenrod"))
 }
 
@@ -53,7 +52,7 @@ plot_histogrammes_TE <- function(name)
     xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e1",
     col = "lightblue",
-    main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 50 simulations")
+    main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 1 simulation")
 	abline(v = mean(datae1$T_em1), f = f_size, col = "black")
     legend("topright", legend = "Moyenne du temps\nd'émission", lty = "longdash", col = "black")
 
@@ -61,7 +60,7 @@ plot_histogrammes_TE <- function(name)
     xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e2",
     col = "lightblue",
-    main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 50 simulations")
+    main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 1 simulation")
 	abline(v = mean(datae2$T_em2), f = f_size, col = "black")
     legend("topright", legend = "Moyenne du temps\nd'émission", lty = "longdash", col = "black")
 }
@@ -81,7 +80,7 @@ plot_P_collision_moyenne <- function(name)
          xlab = "Nombre de capteurs K",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
-         main = "Probabilité de collision moyenne sur 100 simultions\nen fonction du nombre de capteurs")
+         main = "Probabilité de collision moyenne sur 100 simulations\nen fonction du nombre de capteurs")
 	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
     abline(h = 0.7, col = "red")
     legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "longdash", col = "red")
