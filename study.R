@@ -15,10 +15,10 @@ plot_7_courbes_inter <- function(name1, name2)
          ylim = c(0, 0.2),
          pch = pch_id,
          cex = cex_size,
-         xlab = "Temps de la simulation T",
-         ylab = "Probabilité de collision moyenne",
+         xlab = "Temps de la simulation",
+         ylab = "Probabilité de collision",
          col = "blue",
-         main = "Probabilité de collision moyenne\nen fonction du temps de la simulation, K fixé à 5")
+         main = "Probabilité de collision\nen fonction du temps de la simulation, K fixé à 5")
     lines(lowess(data$T, data$P_col2, f = f_size), col = "green")
     lines(lowess(data$T, data$P_col3, f = f_size), col = "red")
     lines(lowess(data$T, data$P_col4, f = f_size), col = "coral3")
@@ -51,18 +51,20 @@ plot_histogrammes_TE <- function(name)
 	hist(datae1$T_em1,
     xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e1",
+    ylab = "Fréquence",
     col = "lightblue",
     main = "Fréquence du temps d'émission par plage dans e1\nK fixé à 5 sur 1 simulation")
 	abline(v = mean(datae1$T_em1), f = f_size, col = "black")
-    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "longdash", col = "black")
+    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
 
     hist(datae2$T_em2,
     xlim = c(0, 0.7),
     xlab = "Temps d'émission dans e2",
+    ylab = "Fréquence",
     col = "lightblue",
     main = "Fréquence du temps d'émission par plage dans e2\nK fixé à 5 sur 1 simulation")
 	abline(v = mean(datae2$T_em2), f = f_size, col = "black")
-    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "longdash", col = "black")
+    legend("topright", legend = "Moyenne du temps\nd'émission", lty = "solid", col = "black")
 }
 
 # Courbe de la probabilité de collision moyenne sur les 7 états d'émission en fonction du
@@ -77,10 +79,10 @@ plot_P_collision_moyenne <- function(name)
     plot(data$K, datamean, 
          pch = pch_id,
          cex = cex_size,
-         xlab = "Nombre de capteurs K",
+         xlab = "Nombre de capteurs",
          ylab = "Probabilité de collision moyenne",
          col = "blue",
-         main = "Probabilité de collision moyenne sur 100 simulations\nen fonction du nombre de capteurs")
+         main = "Probabilité de collision moyenne\nen fonction du nombre de capteurs")
 	lines(lowess(data$K, datamean, f = 0.3), col = "blue")
     abline(h = 0.7, f = f_size, col = "red")
     legend("bottomright", legend = "Probabilité de\ncollision de 70%", lty = "longdash", col = "red")
